@@ -82,7 +82,7 @@ class CarsHandler {
     ) {
       const response: DefaultResponse = {
         status: "BAD_REQUEST",
-        message: "fields cannot be empty",
+        message: "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
         data: {
           created_car: null,
         },
@@ -104,30 +104,6 @@ class CarsHandler {
     res.status(201).send(response);
   }
 
-  async deleteCarById(req: Request, res: Response) {
-    const queryId: number = parseInt(req.params.id);
-    const deletedCar: Car | null = await CarsService.deleteCarById(queryId);
-
-    if (!deletedCar) {
-      const Response: DefaultResponse = {
-        status: "ERROR",
-        message: "Car not found",
-        data: null,
-      };
-      return res.status(404).send(Response);
-    }
-
-    const response: DefaultResponse = {
-      status: "DELETED",
-      message: "Car successfully deleted",
-      data: {
-        deleted_car: deletedCar,
-      },
-    };
-
-    res.status(200).send(response);
-  }
-
   async updateCarById(req: Request, res: Response) {
     const queryId: number = parseInt(req.params.id);
     const payload: CarRequest = req.body;
@@ -143,7 +119,7 @@ class CarsHandler {
     ) {
       const response: DefaultResponse = {
         status: "BAD_REQUEST",
-        message: "fiedls cannot be empty",
+        message: "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
         data: {
           updated_car: null,
         },
@@ -174,6 +150,32 @@ class CarsHandler {
     };
     res.status(200).send(response);
   }
+
+  async deleteCarById(req: Request, res: Response) {
+    const queryId: number = parseInt(req.params.id);
+    const deletedCar: Car | null = await CarsService.deleteCarById(queryId);
+
+    if (!deletedCar) {
+      const Response: DefaultResponse = {
+        status: "ERROR",
+        message: "Car not found",
+        data: null,
+      };
+      return res.status(404).send(Response);
+    }
+
+    const response: DefaultResponse = {
+      status: "DELETED",
+      message: "Car successfully deleted",
+      data: {
+        deleted_car: deletedCar,
+      },
+    };
+
+    res.status(200).send(response);
+  }
+
+ 
 }
 
 export default CarsHandler;

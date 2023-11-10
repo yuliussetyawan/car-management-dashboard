@@ -24,8 +24,6 @@ class CarsRepository {
       car_size: car.car_size,
       car_rent_price: car.car_rent_price,
       car_photo: car.car_photo,
-      // created_at: car.created_at,
-      // updated_at: car.updated_at,
     });
 
     return createdCar;
@@ -37,7 +35,7 @@ class CarsRepository {
       await CarEntity.query().findById(queryId).delete();
       return deletedCar;
     } else {
-      return null; 
+      return null;
     }
   }
 
@@ -53,8 +51,6 @@ class CarsRepository {
         car_size: car.car_size,
         car_rent_price: car.car_rent_price,
         car_photo: car.car_photo,
-        // created_at: car.created_at,
-        // updated_at: car.updated_at,
       });
       return updateCar;
     } else {

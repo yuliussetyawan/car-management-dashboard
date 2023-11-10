@@ -23,8 +23,6 @@ class CarServices {
       car_size: car.car_size,
       car_rent_price: car.car_rent_price,
       car_photo: car.car_photo,
-      // created_at: car.created_at,
-      // updated_at: car.updated_at,
     };
     const createdCar = await CarsRepository.uploadCar(carToCreate);
 
@@ -45,8 +43,6 @@ class CarServices {
       car_rent_price: car.car_rent_price,
       car_size: car.car_size,
       car_photo: car.car_photo,
-      // created_at: car.created_at,
-      // updated_at: car.updated_at,
     };
     const updatedCar = await CarsRepository.updateCarById(queryId, carToUpdate);
     return updatedCar;
