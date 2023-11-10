@@ -12,34 +12,31 @@
 
 1. Create a migration for the "cars" table:
 
-   ```bash
-   npx knex migrate:make create_cars_table
+npx knex migrate:make create_cars_table
 
 
 2. Run the migration:
 
-```bash
-Copy code
 npx knex migrate:up
+
 
 
 ![DB](db.png)
 
 
-
 ## Endpoints
 
 1. **Get all cars:**
-   - [http://localhost:3001/api/cars](http://localhost:3001/api/cars)
+   - http://localhost:3001/api/cars
 
 2. **Get car by id:**
-   - [http://localhost:3001/api/cars/:id](http://localhost:3001/api/cars/:id)
+   - http://localhost:3001/api/cars/:id
 
 3. **Get car by size category:**
-   - [http://localhost:3001/api/category/:size](http://localhost:3001/api/category/:size)
+   - http://localhost:3001/api/category/:size
 
 4. **Upload car (POST):**
-   - [http://localhost:3001/api/cars](http://localhost:3001/api/cars)
+   - http://localhost:3001/api/cars
    - **Body Parameters:**
      - car_name (string)
      - car_size (string)
@@ -47,7 +44,7 @@ npx knex migrate:up
      - car_photo (file)
 
 5. **Update car by id (PATCH):**
-   - [http://localhost:3001/api/cars/:id](http://localhost:3001/api/cars/:id)
+   - http://localhost:3001/api/cars/:id
    - **Body Parameters:**
      - car_name (string)
      - car_size (string)
@@ -55,4 +52,4 @@ npx knex migrate:up
      - car_photo (file)
 
 6. **Delete car by id (DELETE):**
-   - [http://localhost:3001/api/cars/:id](http://localhost:3001/api/cars/:id)
+   - http://localhost:3001/api/cars/:id
