@@ -32,7 +32,7 @@
 
 2. **Get car by id:**
    - http://localhost:3001/api/cars/:id
-   ![GET ID](preview/get_by_id.PNG.PNG)
+   ![GET ID](preview/get_by_id.PNG)
 
 3. **Get car by size category:**
    - http://localhost:3001/api/category/:size
