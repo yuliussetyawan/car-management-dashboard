@@ -3,7 +3,6 @@ import { DefaultResponse } from "../models/dto/default";
 import { Car } from "../models/entity/car";
 import { CarRequest } from "../models/dto/car";
 import CarsService from "../services/cars";
-import cloudinary from "../../config/cloudinary";
 
 class CarsHandler {
   async getCars(req: Request, res: Response) {
@@ -65,12 +64,8 @@ class CarsHandler {
   async uploadCar(req: Request, res: Response) {
     const payload: CarRequest = req.body;
 
-    const fileBase64 = req.file?.buffer.toString("base64");
-    const file = `data:${req.file?.mimetype};base64,${fileBase64}`;
+    payload.car_photo = req.file;
 
-    const uploadedImage = await cloudinary.uploader.upload(file);
-
-    payload.car_photo = uploadedImage.secure_url;
     // Payload validation
     if (
       !(
@@ -82,7 +77,8 @@ class CarsHandler {
     ) {
       const response: DefaultResponse = {
         status: "BAD_REQUEST",
-        message: "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
+        message:
+          "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
         data: {
           created_car: null,
         },
@@ -105,10 +101,10 @@ class CarsHandler {
   }
 
   async updateCarById(req: Request, res: Response) {
-    const queryId: number = parseInt(req.params.id);
+    const queryId: number = +req.params.id;
     const payload: CarRequest = req.body;
-    payload.car_photo = (req as any)["uploaded_car_photo"];
-    // Payload validation
+    payload.car_photo = req.file;
+    
     if (
       !(
         payload.car_name &&
@@ -119,7 +115,8 @@ class CarsHandler {
     ) {
       const response: DefaultResponse = {
         status: "BAD_REQUEST",
-        message: "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
+        message:
+          "body fields(car_name, car_size, car_rent_price, and car_photo) cannot be empty",
         data: {
           updated_car: null,
         },
@@ -144,15 +141,14 @@ class CarsHandler {
       status: "UPDATED",
       message: "Car successfully updated",
       data: {
-        old_car: updatedCar,
-        updated_car: payload,
+        updated_car: updatedCar,
       },
     };
     res.status(200).send(response);
   }
 
   async deleteCarById(req: Request, res: Response) {
-    const queryId: number = parseInt(req.params.id);
+    const queryId: number = +req.params.id;
     const deletedCar: Car | null = await CarsService.deleteCarById(queryId);
 
     if (!deletedCar) {
@@ -174,8 +170,6 @@ class CarsHandler {
 
     res.status(200).send(response);
   }
-
- 
 }
 
 export default CarsHandler;

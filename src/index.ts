@@ -14,7 +14,7 @@ const carsHandler = new CarsHandler();
 // Define routes
 app.get("/api/cars", carsHandler.getCars);
 app.get("/api/cars/:id", carsHandler.getCarById);
-app.get("/api/cars/category/:size", carsHandler.getCarBySize)
+app.get("/api/cars/category/:size", carsHandler.getCarBySize);
 app.post(
   "/api/cars",
   cloudinaryUpload.single("car_photo"),
@@ -22,7 +22,7 @@ app.post(
 );
 app.patch(
   "/api/cars/:id",
-  uploadFileUtil.single("car_photo"),
+  cloudinaryUpload.single("car_photo"),
   carsHandler.updateCarById
 );
 app.delete("/api/cars/:id", carsHandler.deleteCarById);

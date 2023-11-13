@@ -1,6 +1,5 @@
-import { raw } from "objection";
 import { Car, CarEntity } from "../models/entity/car";
-import { CarRequest } from "../models/dto/car";
+
 
 class CarsRepository {
   static async getCars(): Promise<Car[]> {
@@ -28,6 +27,7 @@ class CarsRepository {
 
     return createdCar;
   }
+
   static async deleteCarById(queryId: number): Promise<Car | null> {
     const deletedCar = await CarEntity.query().findById(queryId);
 
@@ -41,7 +41,7 @@ class CarsRepository {
 
   static async updateCarById(
     queryId: number,
-    car: CarRequest
+    car: Car
   ): Promise<Car | null> {
     const updateCar = await CarEntity.query().findById(queryId);
 

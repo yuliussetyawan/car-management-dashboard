@@ -1,5 +1,6 @@
 import { CarRequest } from "../models/dto/car";
 import { Car } from "../models/entity/car";
+import cloudinary from "../../config/cloudinary";
 import CarsRepository from "../repositories/cars";
 
 class CarServices {
@@ -18,11 +19,15 @@ class CarServices {
     return listCar;
   }
   static async uploadCar(car: CarRequest): Promise<Car> {
+    const fileBase64 = car.car_photo?.buffer.toString("base64");
+    const file = `data:${car.car_photo?.mimetype};base64,${fileBase64}`;
+    const uploadImg = await cloudinary.uploader.upload(file);
+
     const carToCreate: Car = {
       car_name: car.car_name,
       car_size: car.car_size,
       car_rent_price: car.car_rent_price,
-      car_photo: car.car_photo,
+      car_photo: uploadImg.url,
     };
     const createdCar = await CarsRepository.uploadCar(carToCreate);
 
@@ -38,11 +43,16 @@ class CarServices {
     queryId: number,
     car: CarRequest
   ): Promise<Car | null> {
+    const fileBase64 = car.car_photo?.buffer.toString("base64");
+    const file = `data:${car.car_photo?.mimetype};base64,${fileBase64}`;
+
+    const uploadImg = await cloudinary.uploader.upload(file);
+
     const carToUpdate: Car = {
       car_name: car.car_name,
       car_rent_price: car.car_rent_price,
       car_size: car.car_size,
-      car_photo: car.car_photo,
+      car_photo: uploadImg.url,
     };
     const updatedCar = await CarsRepository.updateCarById(queryId, carToUpdate);
     return updatedCar;
